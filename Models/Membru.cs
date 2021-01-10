@@ -12,12 +12,12 @@ namespace InaBeauty.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(20, MinimumLength =3, ErrorMessage = "Numele este prea scurt / lung")]
         [RegularExpression(@"^[A-Z][a-z]+$", ErrorMessage = "Prima litera trebuie sa fie mare")]
         public string Nume { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Numele este prea scurt / lung")]
         [RegularExpression(@"^[A-Z][a-z]+$", ErrorMessage = "Prima litera trebuie sa fie mare")]
         public string Prenume { get; set; }
 

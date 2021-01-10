@@ -10,12 +10,12 @@ namespace InaBeauty.Models
     {
         public int ID { get; set; }
         [Required]
-       [StringLength(20, ErrorMessage = "Numele nu poate sa fie mai lung de 50 de caractere.")]
+       [StringLength(20, MinimumLength =3, ErrorMessage = "Numele este prea scurt/lung")]
        [RegularExpression(@"^[A-Z][a-z]+$", ErrorMessage = "Prima litera trebuie sa fie mare")]
         public string Nume { get; set; }
         [Required]
         [RegularExpression(@"^[A-Z][a-z]+$", ErrorMessage = "Prima litera trebuie sa fie mare")]
-        [StringLength(20, ErrorMessage ="Numele este prea lung")]
+        [StringLength(20, MinimumLength =3, ErrorMessage ="Numele este prea scurt/lung")]
         public string Prenume { get; set; }
        [DataType(DataType.Date)]
        [Display(Name = "Data Programare")]

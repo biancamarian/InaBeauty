@@ -2,47 +2,102 @@
 @model InaBeauty.Pages.Membrii.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Membrii";
 }
 
-<h1>Index</h1>
+<h1>Membrii</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Adauga un membru nou</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Membru[0].Nume)
+                Nume
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Membru[0].Prenume)
+                Prenume
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Membru[0].DataAngajare)
+                Data angajarii
             </th>
-            <th></th>
+            <th>
+                Servicii
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Membru) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nume)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prenume)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataAngajare)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Membru.Membrii)
+        {
+            string selectedRow = "";
+            if (item.Id == Model.MembruID)
+            {
+                selectedRow = "succes";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nume)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prenume)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataAngajare)
+                </td>
+                <td>
+                    @{
+                        foreach (var serviciu in item.AlocariServicii)
+                        {
+                            @serviciu.Serviciu.ServiciuID @:  @serviciu.Serviciu.Denumire <br />
+                        }
+                    }
+                </td>
+                <td>
+                <td>
+                    <a asp-page="./Index" asp-route-id="@item.Id">Select</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@if(Model.Membru.Servicii !=null)
+{
+<h3>Servicii prestate de membrul ales</h3>
+<table class="table">
+    <tr>
+        <th>Numar</th>
+        <th>Denumire</th>
+        <th>Pret</th>
+        <th>Durata</th>
+    </tr>
+
+    @foreach (var item in Model.Membru.Servicii)
+    {
+        string selectedRow = "";
+        if (item.ServiciuID == Model.ServiciuID)
+        {
+            selectedRow = "table-success";
+        }
+        <tr class="@selectedRow">
+            <td>
+                @item.ServiciuID
+            </td>
+            <td>
+                @item.Denumire
+            </td>
+            <td>
+                @item.Pret
+            </td>
+             <td>
+                @item.Durata
+            </td>
+
+        </tr>
+    }
+
+</table>
+}
