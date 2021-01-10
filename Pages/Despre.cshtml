@@ -1,0 +1,27 @@
+﻿@page
+@model InaBeauty.Pages.DespreModel
+@{
+    ViewData["Title"] = "Statistica Clienti";
+}
+<h2>Statistica Clienti</h2>
+<table>
+    <tr>
+        <th>
+            Data Programare
+        </th>
+        <th>
+            Clienti
+        </th>
+    </tr>
+    @foreach (var item in Model.Client)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataProgramare)
+            </td>
+            <td>
+                @item.ClientiNr
+            </td>
+        </tr>
+    }
+</table>
